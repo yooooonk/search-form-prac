@@ -21,7 +21,7 @@ FormView.bindEvents = function(){
     this.inputEl.addEventListener('keyup', e => this.onKeyup(e))
 }
 
-FormView.onKeyup() = function(e){
+FormView.onKeyup = function(e){
     this.showResetBtn(this.inputEl.value.length)
 }
 
