@@ -4,7 +4,13 @@ const tag = '[MainController]'
 
 export default{
     init(){
-        console.log(tag,'init()')
+        
         FormView.setUp(document.querySelector('form'))
+        .on('@submit',e=>this.onSubmit(e.detail))
+    },
+
+    onSubmit(input){
+        console.log(tag,'onSubmit()',input)
     }
+
 }
