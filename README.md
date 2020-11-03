@@ -11,12 +11,18 @@ __검색폼 구현__
 [x] 엔터를 입력하면 검색 결과가 보인다(컨트롤러에게 위임)
 [x] x 버튼을 클릭하거나, 검색어를 삭제하면 검색 결과를 삭제한다
 
+__검색 결과 구현__
+[] 검색 결과가 검색폼 아래 위치한다
+[] 검색 결과가 보인다
+[] x버튼을 클릭하면 검색폼이 초기화 되고, 검색 결과가 사라진다
+_
+
 ### 새로 알게 된 내용
 - lite-server : html, css, js의 간단한 구동과 테스트를 가능하게 한다
     - npm install -g lite-server
 - Object.create(proto[,propertiesObject]) : 지정된 프로토타입 객체 및 속성(property)을 갖는 새 객체를 만든다
     - 반환값 : 지정된 프로토타입 개체와 속성을 갖는 새로운 개체
-
+- emit : 이벤트를 다른 컴포넌트로 넘김
 ---
 __reference__
 - [MDN Object.create()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
