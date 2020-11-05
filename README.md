@@ -15,18 +15,22 @@ __검색 결과 구현__
 [x] 검색 결과가 검색폼 아래 위치한다
 [x] 검색 결과가 보인다
 [x] x버튼을 클릭하면 검색폼이 초기화 되고, 검색 결과가 사라진다
-_
+
+__탭 구현__
+[x] 추천 검색어, 최근 검색어 탭이 검색폼 아래 위치한다
+[x] 기본으로 추천 검색어 탭을 선택한다
+[] 각 탭을 클릭하면 탭 아래 내용이 변경된다
 
 ### 새로 알게 된 내용
-- lite-server : html, css, js의 간단한 구동과 테스트를 가능하게 한다
+- __lite-server__ : html, css, js의 간단한 구동과 테스트를 가능하게 한다
     - npm install -g lite-server
-- Object.create(proto[,propertiesObject]) : 지정된 프로토타입 객체 및 속성(property)을 갖는 새 객체를 만든다
+- __Object.create(proto[,propertiesObject])__ : 지정된 프로토타입 객체 및 속성(property)을 갖는 새 객체를 만든다
     - 반환값 : 지정된 프로토타입 개체와 속성을 갖는 새로운 개체
-- emit : 이벤트를 다른 컴포넌트로 넘김
-- reduce의 initial Value
+- __emit__ : 이벤트를 다른 컴포넌트로 넘김
+- __reduce의 initial Value__
     - arr.reduce(callback[, initialValue])
     - callback의 최초 호출에서 첫 번째 인수에 제공하는 값. 초기값을 제공하지 않으면 배열의 첫 번째 요소를 사용. 빈 배열에서 초기값 없이 reduce()를 호출하면 오류가 발생함
+- __Array.from()__ : 유사 배열 또는 반복 가능한 객체로부터 새로운 Array 인스턴스를 생성한다
 ---
 __reference__
-- [MDN Object.create()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
-- [MDN Arr.reduce()](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
+- [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)
