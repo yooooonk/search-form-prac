@@ -16,7 +16,17 @@ ResultView.render = function(data=[]){
 }
 
 ResultView.getSearchResultHtml = function(data){
-    debugger
+    return data.reduce((html, item)=>{
+        html += this.getSearchItemHtml(item)
+        return html
+    },'<ul>')+'</ul>'
+}
+
+ResultView.getSearchItemHtml = function(item){
+    return `<li>
+                <img src='${item.image}'>
+                <p>${item.name}
+            </li>`
 }
 
 export default ResultView

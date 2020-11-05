@@ -36,6 +36,7 @@ export default{
 
     onResetForm(){
         console.log(tag,'reset()')
+        ResultView.hide()
         
     }
 
