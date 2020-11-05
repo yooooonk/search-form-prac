@@ -40,7 +40,7 @@ FormView.onKeyup = function(e){
     this.emit('@submit',{input:this.inputEl.value})    
 
     // 내용이 없을 때 폼 리셋
-    if(!this.inputEl.length) this.emit('@reset')
+    if(!this.inputEl.value.length) this.emit('@reset')
 }
 
 export default FormView
