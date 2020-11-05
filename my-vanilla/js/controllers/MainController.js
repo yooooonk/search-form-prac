@@ -1,5 +1,6 @@
 import FormView from '../views/FormView.js'
 import ResultView from '../views/ResultView.js'
+import TabView from '../views/TabView.js'
 
 import SearchModel from '../models/SearchModel.js'
 
@@ -14,6 +15,16 @@ export default{
 
         // 검색결과
         ResultView.setup(document.querySelector('#search-result'))
+        this.renderView()
+
+        this.selectedTab = '추천 검색어'
+        
+        TabView.setActiveTab(this.selectedTab)
+    },
+    renderView(){
+        TabView.setup(document.querySelector('#tabs'))
+        
+        ResultView.hide()
     },
 
     onSubmit(input){
