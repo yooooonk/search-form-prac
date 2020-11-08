@@ -23,6 +23,7 @@ export default{
     },
     renderView(){
         TabView.setup(document.querySelector('#tabs'))
+                .on('@change',e=>this.onChangeTab(e.detail.tabName))
         
         ResultView.hide()
     },
@@ -49,6 +50,10 @@ export default{
         console.log(tag,'reset()')
         ResultView.hide()
         
+    },
+
+    onChangeTab(tabName){
+        console.log(tabName)
     }
 
 }
