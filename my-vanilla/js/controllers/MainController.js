@@ -50,7 +50,7 @@ export default{
     },
 
     search(query){
-        
+        FormView.setValue(query)
         SearchModel.list(query).then(data=>{
             this.onSearchResult(data)
         })
@@ -65,7 +65,7 @@ export default{
 
     onResetForm(){
         console.log(tag,'reset()')
-        ResultView.hide()
+        this.renderView()
         
     },
 
@@ -80,6 +80,7 @@ export default{
     },
 
     onClickKeyword(keyword){
+        
         this.search(keyword)
     }
 

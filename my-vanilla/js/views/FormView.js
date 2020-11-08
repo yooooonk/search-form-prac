@@ -43,4 +43,9 @@ FormView.onKeyup = function(e){
     if(!this.inputEl.value.length) this.emit('@reset')
 }
 
+FormView.setValue = function(value=''){
+    this.inputEl.value=value
+    this.showResetBtn(true)
+}
+
 export default FormView
