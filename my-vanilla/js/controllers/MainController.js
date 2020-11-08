@@ -26,6 +26,7 @@ export default{
         
         // 추천검색어
         KeywordView.setup(document.querySelector('#search-keyword'))
+                    .on('@click',e=>this.onClickKeyword(e.detail.keyword))
         
         this.renderView()
         
@@ -49,7 +50,7 @@ export default{
     },
 
     search(query){
-        console.log(tag,'search()',query)
+        
         SearchModel.list(query).then(data=>{
             this.onSearchResult(data)
         })
@@ -57,6 +58,8 @@ export default{
     },
 
     onSearchResult(data){
+        TabView.hide()
+        KeywordView.hide()
         ResultView.render(data)
     },
 
@@ -74,6 +77,11 @@ export default{
         KeywordModel.list().then(data=>{
             KeywordView.render(data)
         })
+    },
+
+    onClickKeyword(keyword){
+        this.search(keyword)
     }
+
 
 }
