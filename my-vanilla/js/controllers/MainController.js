@@ -33,6 +33,7 @@ export default{
         // 최근검색어
         HistoryView.setup(document.querySelector('#search-history'))
                     .on('@click',e=>this.onClickHistory(e.detail.keyword))
+                    .on('@remove',e=>this.onRemoveHistory(e.detail.keyword))
         
         this.renderView()
         
@@ -87,7 +88,7 @@ export default{
 
     fetchSearchHistory(){
         HistoryModel.list().then(data=>{
-            HistoryView.render(data)
+            HistoryView.render(data).bindRemoveBtn()
         })
     },
 
@@ -99,5 +100,10 @@ export default{
     onClickHistory(keyword){
         
         this.search(keyword)
+    },
+
+    onRemoveHistory(keyword){
+        HistoryModel.remove(keyword)
+        this.renderView()
     }
 }
