@@ -26,6 +26,13 @@ __추천 검색어 구현__
 [x] 목록에서 검색어를 클릭하면 선택된 검색어로 검색 결과 화면으로 이동
 [x] 검색폼에 선택된 추천 검색어 설정
 
+__최근 검색어 구현__
+[x] 최근 검색어, 목록이 탭 아래 위치한다
+[x] 목록에서 검색어를 클릭하면 선택된 검색어로 검색 결과 화면으로 이동
+[] 검색일자, 버튼 목록이 있다
+[] 목록에서 x 버튼을 클릭하면 선택된 검색어가 목록에서 삭제
+[] 검색시마다 최근 검색어 목록에 추가된다
+
 ### 새로 알게 된 내용
 - __lite-server__ : html, css, js의 간단한 구동과 테스트를 가능하게 한다
     - npm install -g lite-server
@@ -36,6 +43,8 @@ __추천 검색어 구현__
     - arr.reduce(callback[, initialValue])
     - callback의 최초 호출에서 첫 번째 인수에 제공하는 값. 초기값을 제공하지 않으면 배열의 첫 번째 요소를 사용. 빈 배열에서 초기값 없이 reduce()를 호출하면 오류가 발생함
 - __Array.from()__ : 유사 배열 또는 반복 가능한 객체로부터 새로운 Array 인스턴스를 생성한다
+- __event bind()__와 addEventListener()__ : 이벤트를 html에 직접 선언하지 않고 바인딩하는 방식
+
 ---
 __reference__
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)

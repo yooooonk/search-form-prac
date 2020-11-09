@@ -2,9 +2,11 @@ import FormView from '../views/FormView.js'
 import ResultView from '../views/ResultView.js'
 import TabView from '../views/TabView.js'
 import KeywordView from '../views/KeywordView.js'
+import HistoryView from '../views/HistoryView.js'
 
 import SearchModel from '../models/SearchModel.js'
 import KeywordModel from '../models/KeywordModel.js'
+import HistoryModel from '../models/HistoryModel.js'
 
 const tag = '[MainController]'
 
@@ -22,11 +24,15 @@ export default{
         TabView.setup(document.querySelector('#tabs'))
                 .on('@change',e=>this.onChangeTab(e.detail.tabName))
         
-        this.selectedTab = '추천 검색어'
+        this.selectedTab = '최근 검색어'
         
         // 추천검색어
         KeywordView.setup(document.querySelector('#search-keyword'))
                     .on('@click',e=>this.onClickKeyword(e.detail.keyword))
+
+        // 최근검색어
+        HistoryView.setup(document.querySelector('#search-history'))
+                    .on('@click',e=>this.onClickHistory(e.detail.keyword))
         
         this.renderView()
         
@@ -38,7 +44,7 @@ export default{
             this.fetchSearchKeyword()
             
         }else{
-
+            this.fetchSearchHistory()
         }
         ResultView.hide()
     },
@@ -79,10 +85,19 @@ export default{
         })
     },
 
+    fetchSearchHistory(){
+        HistoryModel.list().then(data=>{
+            HistoryView.render(data)
+        })
+    },
+
     onClickKeyword(keyword){
         
         this.search(keyword)
+    },
+
+    onClickHistory(keyword){
+        
+        this.search(keyword)
     }
-
-
 }
