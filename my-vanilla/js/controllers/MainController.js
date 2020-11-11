@@ -53,12 +53,17 @@ export default{
     },
 
     onSubmit(input){
-        console.log(tag,'onSubmit()',input)
-
-        this.search(input)
+        const keyword = input.input
+        this.addHistory(keyword)
+        this.search(keyword)
+    },
+    
+    addHistory(keyword){        
+            HistoryModel.add(keyword)
     },
 
     search(query){
+        console.log('search',query)
         FormView.setValue(query)
         SearchModel.list(query).then(data=>{
             this.onSearchResult(data)
@@ -69,6 +74,7 @@ export default{
     onSearchResult(data){
         TabView.hide()
         KeywordView.hide()
+        HistoryView.hide()
         ResultView.render(data)
     },
 
