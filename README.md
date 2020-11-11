@@ -50,10 +50,14 @@ __최근 검색어 구현__
     - 뷰 인스턴스 생성
     ``` 
         new Vue({
-            el : '#app'    // vue 인스턴스가 마운트 될 위치
-            data : ''
+            el : '#app',    // vue 인스턴스가 마운트 될 위치
+            data : '',
+            methods : {
+                // DOM과 바인딩할 함수 정의
+            } 
         })
     ```
+- __@event.prevent__     : event.preventDefault()와 같은 기능
 
 
 
