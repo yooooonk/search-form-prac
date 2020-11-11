@@ -45,6 +45,17 @@ __최근 검색어 구현__
 - __Array.from()__ : 유사 배열 또는 반복 가능한 객체로부터 새로운 Array 인스턴스를 생성한다
 - __event bind()와 addEventListener()__ : 이벤트를 html에 직접 선언하지 않고 바인딩하는 방식
 - __event.stopPropagation()__ : 이벤트의 버블링을 막는 메서드
+- __뷰 사용법__
+    - CDN 이용
+    - 뷰 인스턴스 생성
+    ``` 
+        new Vue({
+            el : '#app'    // vue 인스턴스가 마운트 될 위치
+            data : ''
+        })
+    ```
+
+
 
 ---
 __reference__
