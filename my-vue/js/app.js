@@ -7,6 +7,11 @@ new Vue({
         onSubmit(e){
             
         },
+        onKeyup(){
+            if(!this.query.legnth){
+                this.onClickResetBtn()
+            }
+        },
         onClickResetBtn(){
             this.query = ''
         }
