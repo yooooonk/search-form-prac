@@ -5,8 +5,13 @@ new Vue({
     data:{
         query : '',
         submitted : false,
-        searchResult : ''
+        searchResult : '',
+        tabs :['추천 검색어', '최근 검색어'],
+        selectedTab:''
         
+    },
+    created(){
+        this.selectedTab = this.tabs[0]
     },
     methods:{ // DOM과 바인딩한 함수 정의
         onSubmit(e){
@@ -31,6 +36,10 @@ new Vue({
                 
                 this.searchResult = data
             })
+        },
+        onClickTab(tab){
+            this.selectedTab = tab
+            
         }
     }
 })
