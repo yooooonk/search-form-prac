@@ -34,6 +34,14 @@ new Vue({
         },
         onSubmit(e){
             this.search()
+            this.addHistory()
+        },
+        addHistory(){
+            let today = new Date()
+            let m = today.getMonth()+1
+            let d = today.getDate()
+            console.log(m,d)
+            console.log(this.query)
         },
         onKeyup(){
             if(!this.query.legnth){
@@ -54,6 +62,9 @@ new Vue({
                 
                 this.searchResult = data
             })
+
+            HistoryModel.add(this.query)
+            this.fetchHistory()
         },
         onClickTab(tab){
             this.selectedTab = tab
@@ -61,6 +72,11 @@ new Vue({
         onClickKeyword(keyword){
             this.query = keyword
             this.search()
+        },
+        onClickHistoryRemoveBtn(history){
+                        
+            HistoryModel.remove(history)
+            this.fetchHistory()
         }
 
     }

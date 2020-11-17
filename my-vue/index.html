@@ -52,9 +52,10 @@
                 
             </div>
             <div v-else>
-                <ul>
-                    <li v-for="(item, index in historyList">
-                        {{index+1}} {{item.keyword}}
+                <ul class="list">
+                    <li v-for="(item, index in historyList" @click=onClickKeyword(item.keyword)>
+                         {{item.keyword}} <span class="date">{{item.date}}</span> 
+                         <button class="btn-remove" @click.stop="onClickHistoryRemoveBtn(item.keyword)"></button>
                     </li>
                 </ul>
             </div>
