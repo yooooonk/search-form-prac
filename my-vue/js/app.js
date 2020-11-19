@@ -3,6 +3,7 @@ import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js'
+import ResultComponent from './components/ResultComponent.js'
 
 new Vue({
     el:'#app', // 뷰 인스턴스가 어느 부분에 마운트될것인지 설정
@@ -16,7 +17,8 @@ new Vue({
         historyList:''        
     },
     components:{
-        'search-form':FormComponent
+        'search-form':FormComponent,
+        'search-result':ResultComponent
     },
     methods:{ // DOM과 바인딩한 함수 정의
         fetchRecommend(){
