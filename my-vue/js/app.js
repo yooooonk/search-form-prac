@@ -2,6 +2,8 @@ import SearchModel from './models/SearchModel.js'
 import KeywordModel from './models/KeywordModel.js'
 import HistoryModel from './models/HistoryModel.js'
 
+import FormComponent from './components/FormComponent.js'
+
 new Vue({
     el:'#app', // 뷰 인스턴스가 어느 부분에 마운트될것인지 설정
     data:{
@@ -11,15 +13,10 @@ new Vue({
         tabs :['추천 검색어', '최근 검색어'],
         selectedTab:'',
         recommondList : '',
-        historyList:''
-        
+        historyList:''        
     },
-    created(){
-        this.selectedTab = this.tabs[0]
-
-        this.fetchRecommend()
-
-        this.fetchHistory()
+    components:{
+        'search-form':FormComponent
     },
     methods:{ // DOM과 바인딩한 함수 정의
         fetchRecommend(){
@@ -32,16 +29,9 @@ new Vue({
                 this.historyList = data
             })
         },
-        onSubmit(e){
+        onSubmit(query){
+            this.query = query
             this.search()
-            this.addHistory()
-        },
-        addHistory(){
-            let today = new Date()
-            let m = today.getMonth()+1
-            let d = today.getDate()
-            console.log(m,d)
-            console.log(this.query)
         },
         onKeyup(){
             if(!this.query.legnth){
@@ -79,5 +69,12 @@ new Vue({
             this.fetchHistory()
         }
 
+    },
+    created(){
+        this.selectedTab = this.tabs[0]
+
+        this.fetchRecommend()
+
+        this.fetchHistory()
     }
 })

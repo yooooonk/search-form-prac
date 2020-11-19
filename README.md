@@ -54,11 +54,13 @@ __최근 검색어 구현__
             data : '',
             methods : {
                 // DOM과 바인딩할 함수 정의
-            } 
+            },
+            components:{
+                key : value
+            }
         })
     ```
 - __@event.prevent__     : event.preventDefault()와 같은 기능
-
 
 
 ---
