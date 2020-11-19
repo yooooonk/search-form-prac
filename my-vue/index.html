@@ -14,10 +14,7 @@
     </header>
 
     <div class="container">
-        <form @submit.prevent="onSubmit">
-            <input type="text" v-model="query" placeholder="검색어를 입력하세요" autofocus>
-            <button type="reset" @click="onClickResetBtn" v-show="query.length" class="btn-reset"></button>
-        </form>
+        <search-form :value="query" v-on:@submit="onSubmit" v-on:@reset="resetForm"></search-form>
         <div v-if="submitted">
             <div v-if="searchResult.length">
                 <ul>
@@ -52,9 +49,10 @@
                 
             </div>
             <div v-else>
-                <ul>
-                    <li v-for="(item, index in historyList">
-                        {{index+1}} {{item.keyword}}
+                <ul class="list">
+                    <li v-for="(item, index in historyList" @click=onClickKeyword(item.keyword)>
+                         {{item.keyword}} <span class="date">{{item.date}}</span> 
+                         <button class="btn-remove" @click.stop="onClickHistoryRemoveBtn(item.keyword)"></button>
                     </li>
                 </ul>
             </div>
@@ -67,3 +65,9 @@
 </div>
 
 </html>
+<template id="search-form">
+    <form @submit.prevent="onSubmit">
+        <input type="text" v-model="inputValue" placeholder="검색어를 입력하세요" autofocus>
+        <button type="reset" @click="onClickResetBtn" v-show="inputValue.length" class="btn-reset"></button>
+    </form>
+</template>
