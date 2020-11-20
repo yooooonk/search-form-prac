@@ -13,7 +13,11 @@ export default{
         onClickResetBtn(){
             this.inputValue = ''
             this.$emit('@reset')
-
         },
+        onKeyup(){
+            if(this.inputValue.length === 0){
+                this.$emit('@reset')
+            }
+        }
     }
 }
