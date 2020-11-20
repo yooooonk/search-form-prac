@@ -56,7 +56,7 @@
 </html>
 <template id="search-form">
     <form @submit.prevent="onSubmit">
-        <input type="text" v-model="inputValue" placeholder="검색어를 입력하세요" autofocus>
+        <input type="text" v-model="inputValue" placeholder="검색어를 입력하세요" autofocus @keyup="onKeyup">
         <button type="reset" @click="onClickResetBtn" v-show="inputValue.length" class="btn-reset"></button>
     </form>
 </template>
