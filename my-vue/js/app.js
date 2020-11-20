@@ -4,6 +4,7 @@ import HistoryModel from './models/HistoryModel.js'
 
 import FormComponent from './components/FormComponent.js'
 import ResultComponent from './components/ResultComponent.js'
+import ListComponent from './components/ListComponent.js'
 
 new Vue({
     el:'#app', // 뷰 인스턴스가 어느 부분에 마운트될것인지 설정
@@ -13,22 +14,23 @@ new Vue({
         searchResult : '',
         tabs :['추천 검색어', '최근 검색어'],
         selectedTab:'',
-        recommondList : '',
-        historyList:''        
+        keywords : '',
+        history:''        
     },
     components:{
         'search-form':FormComponent,
-        'search-result':ResultComponent
+        'search-result':ResultComponent,
+        'list' : ListComponent
     },
     methods:{ // DOM과 바인딩한 함수 정의
         fetchRecommend(){
             KeywordModel.list().then(data=>{
-                this.recommondList = data
+                this.keywords = data
             })
         },
         fetchHistory(){
             HistoryModel.list().then(data=>{
-                this.historyList = data
+                this.history = data
             })
         },
         onSubmit(query){

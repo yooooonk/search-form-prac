@@ -61,7 +61,8 @@ __최근 검색어 구현__
         })
     ```
 - __@event.prevent__     : event.preventDefault()와 같은 기능
-
+- __computed__ : 
+- __watch__ : vue 모델을 감시하고 있다가 어떤 값이 변경되면 실행되는 함수
 
 ---
 __reference__
