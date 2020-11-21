@@ -2,7 +2,12 @@
 
 - 인프런강의 [실습 UI 개발로 배워보는 순수 javascript와 VueJS개발(김정환)](https://www.inflearn.com/course/%EC%88%9C%EC%88%98js-vuejs-%EA%B0%9C%EB%B0%9C-%EA%B0%95%EC%A2%8C) 강의를 보며 공부한 내용입니다
 
-- &#128198; 2020/10/31 ~ 
+- &#128198; 2020/10/31 ~ 2020/11/21
+![img1](https://github.com/yooooonk/TIL/blob/master/img/searchform1.PNG)
+![img2](https://github.com/yooooonk/TIL/blob/master/img/searchform2.PNG)
+![img3](https://github.com/yooooonk/TIL/blob/master/img/searchform3.PNG)
+![img4](https://github.com/yooooonk/TIL/blob/master/img/searchform4.PNG)
+
 
 ### 요구사항 분석
 __검색폼 구현__
@@ -57,13 +62,23 @@ __최근 검색어 구현__
             },
             components:{
                 key : value
+            },
+            watch :{
+
+            },
+            computed:{
+
             }
         })
     ```
 - __@event.prevent__     : event.preventDefault()와 같은 기능
-- __computed__ : 
+- __computed__ : 복잡한 표현식 대신 함수로 사용할 수 있다
 - __watch__ : vue 모델을 감시하고 있다가 어떤 값이 변경되면 실행되는 함수
 
+
+### 더 해볼것
+- 간단한 REST API 통신
 ---
 __reference__
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)
+- [Vue](https://kr.vuejs.org/)
