@@ -57,13 +57,20 @@ __최근 검색어 구현__
             },
             components:{
                 key : value
+            },
+            watch :{
+
+            },
+            computed:{
+
             }
         })
     ```
 - __@event.prevent__     : event.preventDefault()와 같은 기능
-- __computed__ : 
+- __computed__ : 복잡한 표현식 대신 함수로 사용할 수 있다
 - __watch__ : vue 모델을 감시하고 있다가 어떤 값이 변경되면 실행되는 함수
 
 ---
 __reference__
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)
+- [Vue](https://kr.vuejs.org/)
