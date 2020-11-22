@@ -4,27 +4,33 @@ const HistoryView = Object.create(View)
 const HISTORY_LS = 'history'
 const NO_HISTORY = '최근 검색어가 없습니다'
 
-let historys = [];
+let historys = []
 
 HistoryView.setup = function(el){
     this.init(el)
+    
     this.loadHistory()
     return this
 }
 
 HistoryView.loadHistory = function(){
-    this.historys  = JSON.parse(localStorage.getItem(HISTORY_LS))  
+
+    let historyList = localStorage.getItem(HISTORY_LS);    
+    this.historys = JSON.parse(historyList);
+    
 },
 
 HistoryView.render = function(){    
-      
-    this.el.innerHTML = this.historys? this.paintHistoryList() : NO_HISTORY
+    
+    this.el.innerHTML = this.historys.length? this.paintHistoryList() : NO_HISTORY
     this.show()
     this.bindEvent()
+
     return this
 }
 
-HistoryView.paintHistoryList = function(){    
+HistoryView.paintHistoryList = function(){       
+    
     return this.historys.reduce((html,item,idx)=>{
         
         html += `<li data-keyword="${item.keyword}">                
@@ -34,7 +40,7 @@ HistoryView.paintHistoryList = function(){
                 <button class="btn-remove"></button>                
                 </li>`
         return html                
-    },'<ul class="list">')+"</ul>"
+    },'<ul class="list">')+"</ul>" 
 }
 
 HistoryView.saveHistory = function(keyword){
@@ -44,23 +50,39 @@ HistoryView.saveHistory = function(keyword){
     let dd = dateObj.getDate()
     let date = `${mm}.${dd}`
     
-    const historyObj ={
+    let historyObj ={
         keyword,
         date
     }
+     
+    this.checkHistoryList(keyword)
 
-    if(this.historys.length>=10){
-        this.historys.shift()
-    }
-    this.historys.push(historyObj);
+    this.historys.unshift(historyObj);
 
     localStorage.setItem(HISTORY_LS,JSON.stringify(this.historys)); 
 }
 
+HistoryView.checkHistoryList = function(keyword){
+    if(this.historys.length>=10){
+        this.historys.pop()
+    }
+    
+    this.removeKeyword(keyword)    
+}
+
+HistoryView.removeKeyword = function(keyword){
+    let removedHistorys = this.historys.filter(ele=>{
+        return ele.keyword !== keyword
+    })
+
+    this.historys = removedHistorys
+}
+
 HistoryView.bindEvent = function(){
+    
     Array.from(this.el.querySelectorAll('li')).forEach(li=>{
         li.addEventListener('click',e=>this.onClickKeyword(e.currentTarget.dataset.keyword))
-        li.lastElementChild.addEventListener('click',e=>this.onRemove(e.target.parentNode.dataset.keyword))
+        li.lastElementChild.addEventListener('click',e=>this.onRemove(e))
     })
 }
 
@@ -69,7 +91,16 @@ HistoryView.onClickKeyword = function(keyword){
 }
 
 HistoryView.onRemove = function(e){
-    
+    e.stopPropagation()    
+    let keyword = e.target.parentNode.dataset.keyword
+    this.emit('@remove',{keyword})
+      
+}
+
+HistoryView.removeHistory = function(keyword){
+    this.removeKeyword(keyword)
+
+    localStorage.setItem(HISTORY_LS,JSON.stringify(this.historys)); 
 }
 
 export default HistoryView
