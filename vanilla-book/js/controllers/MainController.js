@@ -19,6 +19,7 @@ export default{
                 
         HistoryView.setup(document.querySelector('#history-list'))
                     .on('@click',e=>this.search(e.detail.keyword))
+                    .on('@remove',e=>this.onRemove(e.detail.keyword))
                 
         this.renderView()
         
@@ -28,7 +29,6 @@ export default{
         this.search(keyword)
     },
     search(keyword){        
-        console.log('두번')
         HistoryView.saveHistory(keyword)
 
         axios.get('https://dapi.kakao.com/v3/search/book',{
@@ -43,10 +43,9 @@ export default{
     },
     
     onResetForm(){
+        this.selectedTab = '최근 검색어'
+        FormView.showResetBtn(false)
         this.renderView()
-    },
-    renderView(){
-        console.log('reset-renderView')
     },
     onChangeTab(e){
         this.selectedTab = e;
@@ -67,4 +66,8 @@ export default{
     fetchFavoriteList(){
         console.log('즐겨찾기쓰')
     },
+    onRemove(keyword){
+        HistoryView.removeHistory(keyword)
+        this.renderView()
+    }
 }
