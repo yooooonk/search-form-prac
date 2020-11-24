@@ -9,8 +9,7 @@ FormView.setup = function(el){
     
     this.showResetBtn(false)
     this.bindEvents()
-    
-    
+        
     return this
 }
 
@@ -42,6 +41,12 @@ FormView.onClickReset = function(e){
 
 FormView.showResetBtn = function(show=true){
     this.resetEl.style.display = show? 'block':'none'
+}
+
+FormView.setForm = function(keyword){
+    this.inputEl.value = keyword
+    this.showResetBtn(true)
+    
 }
 
 export default FormView
