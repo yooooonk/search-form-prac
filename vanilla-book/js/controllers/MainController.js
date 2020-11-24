@@ -2,6 +2,7 @@
 import TabView from '../views/TabView.js'
 import FormView from '../views/FormView.js'
 import HistoryView from '../views/HistoryView.js'
+import ResultView from '../views/ResultView.js'
 
 const apiKey = '08f47c215f89ea20492b07610fc231dc'
 
@@ -18,15 +19,24 @@ export default{
                 .on('@change',e=>this.onChangeTab(e.detail.tabName))
                 
         HistoryView.setup(document.querySelector('#history-list'))
-                    .on('@click',e=>this.search(e.detail.keyword))
+                    .on('@click',e=>this.onSubmit(e.detail.keyword))
                     .on('@remove',e=>this.onRemove(e.detail.keyword))
-                
+        
+        ResultView.setup(document.querySelector('#search-result'))
+        
         this.renderView()
         
     },
 
     onSubmit(keyword){
+        FormView.setForm(keyword)
+                
         this.search(keyword)
+        
+        TabView.hide()        
+        HistoryView.hide() 
+        //ResultView.render(keyword)
+
     },
     search(keyword){        
         HistoryView.saveHistory(keyword)
@@ -37,8 +47,9 @@ export default{
             },
             headers: {                
                 Authorization: `KakaoAK ${apiKey}`
-            }}).then(res=>{
-            console.log(res)
+            }}
+        ).then(res=>{
+                ResultView.render(res.data.documents)
         })
     },
     
@@ -56,9 +67,13 @@ export default{
 
         if(this.selectedTab === '최근 검색어'){
             this.fetchHistoryList()
+            
         }else{
             this.fetchFavoriteList()
-        }        
+            HistoryView.hide()
+        }    
+        
+        ResultView.hide()
     },
     fetchHistoryList(){
         HistoryView.render()
@@ -70,4 +85,5 @@ export default{
         HistoryView.removeHistory(keyword)
         this.renderView()
     }
+
 }
