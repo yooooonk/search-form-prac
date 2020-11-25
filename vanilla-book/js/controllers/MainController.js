@@ -5,8 +5,9 @@ import HistoryView from '../views/HistoryView.js'
 import ResultView from '../views/ResultView.js'
 
 const apiKey = '08f47c215f89ea20492b07610fc231dc'
-
+let query = ''
 export default{ 
+    
 
     init(){
         this.selectedTab = '최근 검색어'        
@@ -21,41 +22,44 @@ export default{
         HistoryView.setup(document.querySelector('#history-list'))
                     .on('@click',e=>this.onSubmit(e.detail.keyword))
                     .on('@remove',e=>this.onRemove(e.detail.keyword))
-        
-        ResultView.setup(document.querySelector('#search-result'))
+        ResultView.setup(document.querySelector('#search-result'))  
+                    .on('@click',e=>this.search(this.query,e.detail.page))
         
         this.renderView()
         
     },
 
     onSubmit(keyword){
+        this.query = keyword
         FormView.setForm(keyword)
                 
         this.search(keyword)
         
         TabView.hide()        
         HistoryView.hide() 
-        //ResultView.render(keyword)
 
     },
-    search(keyword){        
+    search(keyword,page=1){
         HistoryView.saveHistory(keyword)
-
+        console.log('서치서치')
         axios.get('https://dapi.kakao.com/v3/search/book',{
             params: {
-                query: keyword
+                query: keyword,
+                page:page
+                
             },
             headers: {                
                 Authorization: `KakaoAK ${apiKey}`
             }}
         ).then(res=>{
-                ResultView.render(res.data.documents)
+                ResultView.render(res.data,page)
         })
     },
     
     onResetForm(){
         this.selectedTab = '최근 검색어'
         FormView.showResetBtn(false)
+        ResultView.resetResult()
         this.renderView()
     },
     onChangeTab(e){
