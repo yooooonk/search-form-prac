@@ -2,7 +2,8 @@ body {
   max-width: 80%;
   width: 500px;
   margin: 40px auto;
-  font: normal 16px/24px "Montserrat", "Helvetica Neue", sans-serif;  
+  font-size: 24px ;  
+  font-family: 'Nanum Pen Script', cursive;
 }
 
 ul {
@@ -108,11 +109,6 @@ form {
 }
 
 
-#search-result img {
-  width: 30%;
-  height: 30%;
-}
-
 .card{
   position: center;
   height: 450px;
@@ -198,7 +194,7 @@ a:active{
   bottom: 0; 
   width: 500px;
   max-width: 95%;
-  font-size: 14px;
+  font-size: 18px;
   color: rgb(87, 71, 64);
   padding: 0 15px;
   background-color:  rgb(245, 219, 224);
@@ -213,6 +209,10 @@ a:active{
   margin-left:10px
 }
 
+#btn_more:hover .on {
+  visibility: visible; 
+}
+
 #btn_more{
   max-width: 100%;
   width: 500px;
@@ -221,5 +221,10 @@ a:active{
   display: inline-block;  
   text-align: center;
   color: white;
-  padding-top:15px
+  padding-top:15px;
+  cursor: pointer;
+}
+
+#btn_more .on{
+  visibility: hidden; 
 }

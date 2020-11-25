@@ -12,7 +12,7 @@ ResultView.btn_more = document.getElementById('btn_more')
 
 ResultView.setup = function(el){
     this.init(el)
-    btn_more.addEventListener('click',e=>this.onClickMoreBtn())
+    btn_more.addEventListener('click',e=>this.onClickMoreBtn(e))
     return this
 }
 
@@ -25,7 +25,8 @@ ResultView.render = function(data,page){
     
     this.show()    
 }
-ResultView.onClickMoreBtn = function(){
+ResultView.onClickMoreBtn = function(e){
+    
     this.page++
     
     this.emit('@click',{page:this.page})
