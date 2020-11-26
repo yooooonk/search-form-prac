@@ -27,7 +27,7 @@ FavoriteView.render = function(){
 FavoriteView.paintFavoriteList = function(){
     return favorites.reduce((html,item)=>{
         html += `<a href="${item.url}" target="_blank">
-                <li class="f" data-id="${item.id}">
+                <li class="fav" id="fav" data-id="${item.id}" draggable="true">
                 <span class="number">#</span>
                     ${item.title}
                 <span class="date">${item.author}</span>
@@ -41,6 +41,16 @@ FavoriteView.bindEvent = function(){
     Array.from(this.el.querySelectorAll('.btn-remove')).forEach(btn=>{
         btn.addEventListener('click',e=>this.onRemove(e))
     })
+
+   /*  Array.from(this.el.querySelectorAll('.fav')).forEach(li=>{
+        li.setAttribute('draggable',true)
+        li.addEventListener('dragstart',this.handleDragStart,false)
+        li.addEventListener('dragenter',this.handleDragEnter,false)
+        li.addEventListener('dragover',this.handleDragOver,false)
+        li.addEventListener('dragleave',this.handleDragLeave,false)
+        li.addEventListener('drop',this.handleDrop,false)
+        li.addEventListener('dragend',this.handleDragEnd,false)
+    }) */
 }
 
 FavoriteView.saveFavorite = function(bookData){
@@ -92,4 +102,58 @@ FavoriteView.removeFavorite = function(id){
 
     localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
 }
+
+// 드래그 앤 드롭 관련 소스
+let li = document.querySelectorAll('.fav')
+console.log(li)
+let dragScrcEl_ = null;
+
+FavoriteView.handleDragStart = function(e){
+    //TODO : this가 아마 이 객체? e.currentTarget 그튼걸로 대체해봐
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html',this.innerHTML)
+    dragScrcEl_ = this;
+    this.classList.add('moving')
+}
+
+FavoriteView.handleDragOver = function(e){
+    if(e.preventDefault){
+        e.preventDefault()
+    }
+
+    e.dataTransfer.dropEffect = 'move'
+    return false
+}
+
+FavoriteView.handleDragEnter = function(e){
+    //TODO
+    this.classList.add('over')
+}
+
+FavoriteView.handleDragLeave = function(e){
+    this.classList.remove('over')
+}
+
+FavoriteView.handleDrop = function(e){
+    if(e.stopPropagation){
+        e.stopPropagation()
+    }
+    if(dragScrcEl_ != this){
+        dragScrcEl_.innerHTML = this.innerHTML
+        this.innerHTML = e.dataTransfer.getData('text/html');
+        
+    }
+    return false
+}
+
+FavoriteView.handleDragEnd = function(e){
+    Array.from(li).forEach.call(li,(col)=>{
+        col.classList.remove('over')
+        col.classList.remove('moving')
+    })
+}
+
+
+
+
 export default FavoriteView
