@@ -9,6 +9,7 @@ ResultView.isEnd = false;
 ResultView.page = 1;
 ResultView.div_bookList = document.getElementById('book-list')
 ResultView.btn_more = document.getElementById('btn_more')
+ResultView.keyword = ''
 
 ResultView.setup = function(el){
     this.init(el)
@@ -21,7 +22,7 @@ ResultView.render = function(data,page){
     this.btn_more.style.display = data.meta.is_end? 'none':''
     
     this.page = page
-    this.div_bookList.innerHTML = data.documents.length? this.div_bookList.innerHTML+this.paintResult(data.documents) : NO_RESULT
+    this.div_bookList.innerHTML = data.documents.length? this.div_bookList.innerHTML+this.paintResult(data.documents) : `<div class="no-data">${NO_RESULT}&#127752;</div>`
 
     let favoriteBtn = document.querySelectorAll('.card-header-is_closed')
 

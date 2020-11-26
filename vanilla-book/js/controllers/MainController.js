@@ -35,13 +35,19 @@ export default{
     },
 
     onSubmit(keyword){
+        
+        if(this.query !== keyword){
+            ResultView.resetResult()
+        }
         this.query = keyword
+
         FormView.setForm(keyword)
                 
         this.search(keyword)
         
         TabView.hide()        
         HistoryView.hide() 
+        FavoriteView.hide()
 
     },
     search(keyword,page=1){

@@ -4,7 +4,7 @@ import View from './View.js'
 const FavoriteView = Object.create(View)
 const FAVORITE_LS = 'favorite'
 const NO_FAVORITE = '즐겨찾기 목록이 없습니다. 추가해보세요'
-
+const ADD_MSG = `즐겨찾기에 추가했습니다 `
 let favorites = []
 
 FavoriteView.setup = function(el){
@@ -19,18 +19,19 @@ FavoriteView.loadFavorite = function(){
 }
 
 FavoriteView.render = function(){
-    this.el.innerHTML = favorites.length? this.paintFavoriteList() : NO_FAVORITE
+    this.el.innerHTML = favorites.length? this.paintFavoriteList() : `<div class="no-data">${NO_FAVORITE}&#127752;</div>`
     this.show()    
     this.bindEvent()
 }
 
 FavoriteView.paintFavoriteList = function(){
     return favorites.reduce((html,item)=>{
-        html += `<a href="${item.url}" target="_blank"><li data-id="${item.id}">                
+        html += `<a href="${item.url}" target="_blank">
+                <li class="f" data-id="${item.id}">
                 <span class="number">#</span>
                     ${item.title}
                 <span class="date">${item.author}</span>
-                <button class="btn-remove"></button>                
+                <button class="btn-remove"></button>                                
                 </li></a>`
         return html                
     },'<ul class="list">')+"</ul>"     
@@ -45,7 +46,7 @@ FavoriteView.bindEvent = function(){
 FavoriteView.saveFavorite = function(bookData){
     
     const id = new Date().getTime()
-    const title = bookData.title
+    const title = bookData.title.substr(0,18).concat('...')
     const author = bookData.authors
     const url = bookData.url
     
@@ -54,8 +55,25 @@ FavoriteView.saveFavorite = function(bookData){
     favorites.push(favoriteObj)
 
     localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
-    // TODO 예쁜 토스트
-    //alert('추가되었습니다')//예쁜 토스트 찾기
+    
+    this.openToast()
+}
+
+let removeToast ;
+
+FavoriteView.openToast = function(){
+    const toast = document.getElementById('toast')
+
+    if(toast.classList.contains('reveal')){
+        clearTimeout(removeToast)
+
+        removeToast = setTimeout(()=>{toast.classList.remove('reveal')},1000)
+    }else{
+        removeToast = setTimeout(()=>{ toast.classList.remove('reveal')},1000)
+    }
+
+    toast.classList.add("reveal")
+    toast.innerText = ADD_MSG
 }
 
 FavoriteView.onRemove = function(e){
@@ -66,7 +84,8 @@ FavoriteView.onRemove = function(e){
 
 FavoriteView.removeFavorite = function(id){
     let removedList = favorites.filter((ele)=>{
-        return ele.id !== id
+        
+        return ele.id !== parseInt(id,10)
     })
 
     favorites = removedList

@@ -59,7 +59,7 @@ ul.tabs {
   background-color: #ff3460ad;
   color: #fff;
 }
-.list li {
+.list li{
   box-sizing: border-box;
   display: block;
   padding: 15px;
@@ -80,6 +80,14 @@ ul.tabs {
   margin-right: 15px;
   color: #ccc;
 }
+
+.list li .author {
+  color: #ccc;
+  top: 15px;
+  margin-left: 10px;
+  font-size:22px
+}
+
 .list li .btn-remove{
   position: absolute;
   right: 0px;
@@ -137,20 +145,20 @@ form {
 }
 
 .card-header-is_closed{
-  background-color: #EF5A31 ;
+   background-color: #ff3460ad ;
   color: #FFF ;
   font-weight: bold ;
   text-align: center ;
   float: right;
-  margin: 15px 15px 0 0;
+  margin: 15px 10px 0 0;
   border-radius: 50%;
   font-weight: bold;
-  padding: 10px 10px;
+  padding: 8px 10px;
   line-height: 20px;
 }
 
 .card-header-is_closed:hover {
-  background-color: #6a31ef ;
+  background-color: #ff3460fd ;
 }
 
 h1{
@@ -231,4 +239,38 @@ a:active{
 
 #btn_more .on{
   visibility: hidden; 
+}
+
+.no-data{
+  width: 500px;
+  max-width: 100%;
+  height: 300px;
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center
+}
+
+#toast{
+  position: fixed;
+  bottom: 300px;
+  left: 43%;
+  padding: 15px 20px;
+  transform: translate(50%, 50px);
+  border-radius: 30px;
+  overflow: hidden;
+  font-size: 20px;
+  color:white;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .5s, visibility .5s, transform .5s;
+  background: #ff346088;
+  z-index: 999;
+}
+
+
+#toast.reveal {
+  z-index: 999;
+  opacity: 1;
+  visibility: visible;
+  transform: translate(50%, 0px)
 }
