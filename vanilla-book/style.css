@@ -149,6 +149,10 @@ form {
   line-height: 20px;
 }
 
+.card-header-is_closed:hover {
+  background-color: #6a31ef ;
+}
+
 h1{
   font-size:22px;
   font-weight: bold;

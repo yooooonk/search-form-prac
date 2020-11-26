@@ -81,7 +81,13 @@ __최근 검색어 구현__
 [x] 검색시마다 최근 검색어 목록에 추가된다
 
 ### &#127804; 배운 것을 통해 내가 만든 도서검색앱
-- 간단한 REST API 통신
+- 카카오 도서검색 API이용
+- CSS 수정
+- 즐겨찾기 기능 추가 - session에 저장
+- history 기능 session을 이용해 구현, 중복체크
+- 즐겨찾기 목록 드래그로 이동가능하게 
+
+
 ---
 __reference__
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)

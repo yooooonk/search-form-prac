@@ -13,25 +13,41 @@ ResultView.btn_more = document.getElementById('btn_more')
 ResultView.setup = function(el){
     this.init(el)
     btn_more.addEventListener('click',e=>this.onClickMoreBtn(e))
+    
     return this
 }
 
 ResultView.render = function(data,page){
-    //this.btn_more.style.display = data.meta.is_end? 'none':''
+    this.btn_more.style.display = data.meta.is_end? 'none':''
     
     this.page = page
-
     this.div_bookList.innerHTML = data.documents.length? this.div_bookList.innerHTML+this.paintResult(data.documents) : NO_RESULT
+
+    let favoriteBtn = document.querySelectorAll('.card-header-is_closed')
+
+    for(let btn of favoriteBtn){
+        btn.addEventListener('click',e=>this.onClickFavoriteBtn(e))
+        
+    }
     
     this.show()    
 }
-ResultView.onClickMoreBtn = function(e){
-    
-    this.page++
-    
-    this.emit('@click',{page:this.page})
 
+ResultView.onClickFavoriteBtn = function(e){
+    e.preventDefault()
+
+    const title = e.currentTarget.children[0].value;
+    const authors = e.currentTarget.children[1].value
+    const url = e.currentTarget.children[2].value
+
+   this.emit('@favorite',{title,authors,url})
+}
+
+
+ResultView.onClickMoreBtn = function(e){    
     
+    this.page++    
+    this.emit('@click',{page:this.page})
 },
 
 ResultView.paintResult = function(data){
@@ -41,9 +57,11 @@ ResultView.paintResult = function(data){
         return html += `<a class="book" href="${ele.url}" target="_blank">
                         <div class="card">  
                         <div class="card-header" style="background-image : url('${ele.thumbnail}'); background-size:100% 280px; background-repeat:no-repeat">
-                            <div class="card-header-is_closed">
-                                <div class="card-header-text">별</div>
-                                <div class="card-header-number">별2</div>
+                            <div class="card-header-is_closed" value="${ele.title}">
+                                <input type="hidden" value="${ele.title}">
+                                <input type="hidden" value="${ele.authors}">
+                                <input type="hidden" value="${ele.url}">
+                                <div class="card-header-text">+</div>
                             </div>
                         </div>
                         <div class="card-body">     
@@ -67,6 +85,8 @@ ResultView.paintResult = function(data){
     },' ')+' '
     
 }
+
+
 
 ResultView.resetResult = function(){
     this.div_bookList.innerHTML =''

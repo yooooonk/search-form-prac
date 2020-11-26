@@ -3,6 +3,7 @@ import TabView from '../views/TabView.js'
 import FormView from '../views/FormView.js'
 import HistoryView from '../views/HistoryView.js'
 import ResultView from '../views/ResultView.js'
+import FavoriteView from '../views/FavoriteView.js'
 
 const apiKey = '08f47c215f89ea20492b07610fc231dc'
 let query = ''
@@ -21,9 +22,13 @@ export default{
                 
         HistoryView.setup(document.querySelector('#history-list'))
                     .on('@click',e=>this.onSubmit(e.detail.keyword))
-                    .on('@remove',e=>this.onRemove(e.detail.keyword))
+                    .on('@remove',e=>this.onRemove('history',e.detail.keyword))
         ResultView.setup(document.querySelector('#search-result'))  
                     .on('@click',e=>this.search(this.query,e.detail.page))
+                    .on('@favorite',e=>this.addFavoirte(e.detail))
+
+        FavoriteView.setup(document.querySelector('#favorite-list'))                 
+                    .on('@remove',e=>this.onRemove('favorite',e.detail.id))
         
         this.renderView()
         
@@ -41,7 +46,7 @@ export default{
     },
     search(keyword,page=1){
         HistoryView.saveHistory(keyword)
-        console.log('서치서치')
+        
         axios.get('https://dapi.kakao.com/v3/search/book',{
             params: {
                 query: keyword,
@@ -71,6 +76,7 @@ export default{
 
         if(this.selectedTab === '최근 검색어'){
             this.fetchHistoryList()
+            FavoriteView.hide()
             
         }else{
             this.fetchFavoriteList()
@@ -83,11 +89,19 @@ export default{
         HistoryView.render()
     },
     fetchFavoriteList(){
-        console.log('즐겨찾기쓰')
+        FavoriteView.render()
     },
-    onRemove(keyword){
-        HistoryView.removeHistory(keyword)
-        this.renderView()
+    onRemove(type,keyword){
+        if(type === 'history'){
+            HistoryView.removeHistory(keyword)            
+        }else{
+            FavoriteView.removeFavorite(keyword)
+        }
+
+        this.renderView()        
+    },
+    addFavoirte(bookInfo){
+        FavoriteView.saveFavorite(bookInfo)
     }
 
 }
