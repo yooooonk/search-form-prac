@@ -1,4 +1,3 @@
-import HistoryView from './HistoryView.js'
 import View from './View.js'
 
 const FavoriteView = Object.create(View)
@@ -25,9 +24,10 @@ FavoriteView.render = function(){
 }
 
 FavoriteView.paintFavoriteList = function(){
-    return favorites.reduce((html,item)=>{
+    return favorites.reduce((html,item,idx)=>{
+
         html += `<a href="${item.url}" target="_blank">
-                <li class="fav" id="fav" data-id="${item.id}" draggable="true">
+                <li class="fav" id="fav" data-id="${item.id}" data-idx="${idx}" draggable="true"  >
                 <span class="number">#</span>
                     ${item.title}
                 <span class="date">${item.author}</span>
@@ -42,15 +42,12 @@ FavoriteView.bindEvent = function(){
         btn.addEventListener('click',e=>this.onRemove(e))
     })
 
-   /*  Array.from(this.el.querySelectorAll('.fav')).forEach(li=>{
-        li.setAttribute('draggable',true)
-        li.addEventListener('dragstart',this.handleDragStart,false)
-        li.addEventListener('dragenter',this.handleDragEnter,false)
-        li.addEventListener('dragover',this.handleDragOver,false)
-        li.addEventListener('dragleave',this.handleDragLeave,false)
-        li.addEventListener('drop',this.handleDrop,false)
-        li.addEventListener('dragend',this.handleDragEnd,false)
-    }) */
+    Array.from(this.el.querySelectorAll('.fav')).forEach(li=>{
+        li.addEventListener('dragstart',e=>this.handleDragStart(e))        
+        li.addEventListener('dragenter',e=>this.setDraggedOver(e))
+        li.addEventListener('dragend',e=>this.handleDragEnd(e))
+        
+    }) 
 }
 
 FavoriteView.saveFavorite = function(bookData){
@@ -103,55 +100,39 @@ FavoriteView.removeFavorite = function(id){
     localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
 }
 
-// 드래그 앤 드롭 관련 소스
-let li = document.querySelectorAll('.fav')
-console.log(li)
-let dragScrcEl_ = null;
 
-FavoriteView.handleDragStart = function(e){
-    //TODO : this가 아마 이 객체? e.currentTarget 그튼걸로 대체해봐
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html',this.innerHTML)
-    dragScrcEl_ = this;
-    this.classList.add('moving')
-}
+let dragging, draggedOver;
 
-FavoriteView.handleDragOver = function(e){
-    if(e.preventDefault){
-        e.preventDefault()
-    }
+FavoriteView.handleDragStart = function(e){    
+    
+    e.stopPropagation()
+    
+    let target = e.currentTarget;
+    
+     dragging = target.dataset.idx
+     target.classList.add('dragging')
+ }
+ 
 
-    e.dataTransfer.dropEffect = 'move'
-    return false
-}
+FavoriteView.setDraggedOver = function(e){    
+    e.preventDefault()    
 
-FavoriteView.handleDragEnter = function(e){
-    //TODO
-    this.classList.add('over')
-}
-
-FavoriteView.handleDragLeave = function(e){
-    this.classList.remove('over')
-}
-
-FavoriteView.handleDrop = function(e){
-    if(e.stopPropagation){
-        e.stopPropagation()
-    }
-    if(dragScrcEl_ != this){
-        dragScrcEl_.innerHTML = this.innerHTML
-        this.innerHTML = e.dataTransfer.getData('text/html');
-        
-    }
-    return false
+    let target = e.currentTarget;
+    draggedOver = target.dataset.idx
 }
 
 FavoriteView.handleDragEnd = function(e){
-    Array.from(li).forEach.call(li,(col)=>{
-        col.classList.remove('over')
-        col.classList.remove('moving')
-    })
+    e.stopPropagation()
+        
+    let draggingObj = favorites.splice(dragging,1);
+    favorites.splice(draggedOver,0,draggingObj[0])
+    localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
+    this.render()
+    
 }
+
+
+
 
 
 

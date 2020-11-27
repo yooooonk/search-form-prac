@@ -48,6 +48,7 @@ __즐겨찾기__
 - _검색결과에서 + 버튼 클릭시 즐겨찾기 목록에 추가한다_
 - _책 제목이 긴 경우 ...로 입력_
 - _해당 항목 클릭하면 상세 책정보 페이지로 이동_
+- _즐겨찾기 목록 순서편집 가능_
 
 
 
@@ -99,4 +100,5 @@ __reference__
 - [MDN](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 - [Vue](https://kr.vuejs.org/)
 - [카드형 리스트 css](https://endorphin0710.tistory.com/70)
-- [즐겨찾기 목록 drag & drop](https://jsfiddle.net/james2doyle/q8cuM/)
+- [drag & drop 참고](https://jsfiddle.net/james2doyle/q8cuM/)
+- [drag & drop 참고](https://codepen.io/macro6461/pen/RwWemgM)
