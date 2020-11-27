@@ -59,13 +59,15 @@ ul.tabs {
   background-color: #ff3460ad;
   color: #fff;
 }
-.list li{
+.list li, #fav {
   box-sizing: border-box;
   display: block;
   padding: 15px;
   border-bottom: 1px solid #ccc; 
   position: relative;
+  cursor: pointer;
 }
+
 .list li:last-child {
   border-bottom: none;
 }
@@ -273,4 +275,8 @@ a:active{
   opacity: 1;
   visibility: visible;
   transform: translate(50%, 0px)
+}
+
+.dragging{
+  background-color: rgba(255, 192, 203, 0.514);
 }

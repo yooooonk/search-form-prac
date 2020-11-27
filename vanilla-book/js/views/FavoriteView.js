@@ -1,4 +1,3 @@
-import HistoryView from './HistoryView.js'
 import View from './View.js'
 
 const FavoriteView = Object.create(View)
@@ -25,9 +24,10 @@ FavoriteView.render = function(){
 }
 
 FavoriteView.paintFavoriteList = function(){
-    return favorites.reduce((html,item)=>{
+    return favorites.reduce((html,item,idx)=>{
+
         html += `<a href="${item.url}" target="_blank">
-                <li class="f" data-id="${item.id}">
+                <li class="fav" id="fav" data-id="${item.id}" data-idx="${idx}" draggable="true"  >
                 <span class="number">#</span>
                     ${item.title}
                 <span class="date">${item.author}</span>
@@ -41,6 +41,13 @@ FavoriteView.bindEvent = function(){
     Array.from(this.el.querySelectorAll('.btn-remove')).forEach(btn=>{
         btn.addEventListener('click',e=>this.onRemove(e))
     })
+
+    Array.from(this.el.querySelectorAll('.fav')).forEach(li=>{
+        li.addEventListener('dragstart',e=>this.handleDragStart(e))        
+        li.addEventListener('dragenter',e=>this.setDraggedOver(e))
+        li.addEventListener('dragend',e=>this.handleDragEnd(e))
+        
+    }) 
 }
 
 FavoriteView.saveFavorite = function(bookData){
@@ -92,4 +99,42 @@ FavoriteView.removeFavorite = function(id){
 
     localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
 }
+
+
+let dragging, draggedOver;
+
+FavoriteView.handleDragStart = function(e){    
+    
+    e.stopPropagation()
+    
+    let target = e.currentTarget;
+    
+     dragging = target.dataset.idx
+     target.classList.add('dragging')
+ }
+ 
+
+FavoriteView.setDraggedOver = function(e){    
+    e.preventDefault()    
+
+    let target = e.currentTarget;
+    draggedOver = target.dataset.idx
+}
+
+FavoriteView.handleDragEnd = function(e){
+    e.stopPropagation()
+        
+    let draggingObj = favorites.splice(dragging,1);
+    favorites.splice(draggedOver,0,draggingObj[0])
+    localStorage.setItem(FAVORITE_LS,JSON.stringify(favorites))
+    this.render()
+    
+}
+
+
+
+
+
+
+
 export default FavoriteView
