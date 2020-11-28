@@ -22,7 +22,8 @@ ResultView.render = function(data,page){
     this.btn_more.style.display = data.meta.is_end? 'none':''
     
     this.page = page
-    this.div_bookList.innerHTML = data.documents.length? this.div_bookList.innerHTML+this.paintResult(data.documents) : `<div class="no-data">${NO_RESULT}&#127752;</div>`
+    this.div_bookList.innerHTML = data.documents.length? this.div_bookList.innerHTML+this.paintResult(data.documents) 
+    : `<div class="no-data">${NO_RESULT}&#127752;</div>`
 
     let favoriteBtn = document.querySelectorAll('.card-header-is_closed')
 
