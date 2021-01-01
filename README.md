@@ -10,6 +10,10 @@
 ![img4](https://github.com/yooooonk/TIL/blob/master/img/searchform4.PNG)
 
 # &#127804; 내가 만든 도서검색폼
+![vanila](https://github.com/yooooonk/TIL/blob/master/img/vanilla-book.gif)
+```
+$ lite-server
+```
 ### &#128161; 상세기능
 __검색폼__
 - 검색어가 없는 경우 x 버튼을 숨긴다
