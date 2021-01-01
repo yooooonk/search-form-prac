@@ -21,7 +21,7 @@ HistoryView.loadHistory = function(){
 },
 
 HistoryView.render = function(){    
-    this.el.innerHTML = this.historys.length? this.paintHistoryList() : NO_HISTORY
+    this.el.innerHTML = this.historys.length? this.paintHistoryList() : `<div class="no-data">${NO_HISTORY}&#127752;</div>`
     this.show()
     this.bindEvent()
 
