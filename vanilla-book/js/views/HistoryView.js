@@ -16,6 +16,9 @@ HistoryView.setup = function(el){
 HistoryView.loadHistory = function(){
 
     let historyList = localStorage.getItem(HISTORY_LS);    
+    if(!historyList){
+        localStorage.setItem(HISTORY_LS,JSON.stringify(new Array()))
+    }
     this.historys = JSON.parse(historyList);
     
 },

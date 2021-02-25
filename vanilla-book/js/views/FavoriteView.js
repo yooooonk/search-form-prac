@@ -13,7 +13,11 @@ FavoriteView.setup = function(el){
 }
 
 FavoriteView.loadFavorite = function(){
+
     let favoriteList = localStorage.getItem(FAVORITE_LS)
+    if(!favoriteList){
+        localStorage.setItem(FAVORITE_LS,JSON.stringify(new Array()))
+    }
     favorites = JSON.parse(favoriteList)
 }
 
